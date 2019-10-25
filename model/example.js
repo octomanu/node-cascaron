@@ -8,7 +8,6 @@ const example = new Schema({
   },
   message: {
     type: String,
-    unique: true,
     required: [true, "Message required"]
   }
 });
