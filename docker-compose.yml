@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./:/home/node
+      - /home/node/node_modules
     ports:
       - 3000:3000
   mongo:

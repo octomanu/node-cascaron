@@ -8,7 +8,9 @@ const routes = require("./routes");
 const bodyParser = require("body-parser");
 //mongo
 
-mongoose.connect("mongodb://root:example@mongo:27017/curso", {
+
+
+mongoose.connect("mongodb://root:example@mongo:27017/curso?authSource=admin", {
   useNewUrlParser: true,
 });
 

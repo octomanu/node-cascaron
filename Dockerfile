@@ -6,4 +6,6 @@ COPY . /home/node
 
 WORKDIR /home/node
 
-CMD ["nodemon", "index"]
+RUN npm install
+
+CMD ["nodemon", "-L", "index"]
