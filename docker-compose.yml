@@ -16,6 +16,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
   rproxy:
     image: nginx:alpine
+    depends_on:
+      - api
     ports:
       - 80:80
     volumes:

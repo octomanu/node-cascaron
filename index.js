@@ -8,12 +8,15 @@ const bodyParser = require("body-parser");
 //mongo
 
 mongoose.connect("mongodb://root:example@mongo:27017/curso?authSource=admin", {
-  server: { auto_reconnect: true },
+  autoReconnect: true,
   useNewUrlParser: true
 });
 
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
+
+db.on("error", err => {
+  throw new Error(err);
+});
 
 db.once("open", () => {
   console.log("conected");

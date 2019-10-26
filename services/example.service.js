@@ -3,7 +3,6 @@ const repository = require("../repository/example.repository");
 const paginate = (limit = 5, offset = 0) => {
   const queries = [repository.paginate(limit, offset), repository.total()];
   return Promise.all(queries).then(data => {
-    console.log("resultado de queris: ", data);
     return {
       data: data[0],
       total: data[1],

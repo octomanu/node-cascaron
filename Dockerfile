@@ -8,4 +8,4 @@ WORKDIR /home/node
 
 RUN npm install
 
-CMD ["nodemon", "-L", "index"]
+CMD ["nodemon", "-L", "--exitcrash", "index"]
