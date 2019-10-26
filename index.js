@@ -1,4 +1,3 @@
-
 // error in login mongo:
 // docker-compose up --build --force-recreate --renew-anon-volumes
 const express = require("express");
@@ -8,10 +7,9 @@ const routes = require("./routes");
 const bodyParser = require("body-parser");
 //mongo
 
-
-
 mongoose.connect("mongodb://root:example@mongo:27017/curso?authSource=admin", {
-  useNewUrlParser: true,
+  server: { auto_reconnect: true },
+  useNewUrlParser: true
 });
 
 var db = mongoose.connection;
