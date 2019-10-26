@@ -2,17 +2,21 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const service = require("../services/example.service");
 const validator = require("../route-validation/example.validation");
-
+const { paginator } = require("../route-validation/paginator.validation");
 //Get all - paginate
-router.get("/", function(req, res) {
-  res.json([{ message: "hi" }, { message: "bye1" }]);
+router.get("/", paginator, function(req, res) {
+  const limit = req.query.limit;
+  const offset = req.query.offset;
+  service.paginate(limit, offset).then(data => {
+    res.json(data);
+  });
 });
 
 // Get by Id
 router.get("/:id", function(req, res) {
   const id = req.params.id;
   service
-    .findById(id)
+    .findExampleById(id)
     .then(data => {
       res.json(data);
     })
@@ -25,20 +29,28 @@ router.post("/", validator.create, function(req, res) {
   service
     .createExample(data)
     .then(response => res.json(response))
-    .catch(err => res.json({ message: "BOOM!",err }));
+    .catch(err => res.json({ message: "BOOM!", err }));
 });
 
 //Update one
-router.put("/:id", function(req, res) {
+router.put("/:id", validator.update, function(req, res) {
   const id = req.params.id;
-  res.json({ message: "hola2" });
+  const data = req.body;
+  service
+    .updateExample(id, data)
+    .then(exampleDb => {
+      res.json(exampleDb);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 // DELETE
 router.delete("/:id", function(req, res) {
   const id = req.params.id;
   service
-    .remove(id)
+    .removeExample(id)
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });
